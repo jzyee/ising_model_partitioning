@@ -21,13 +21,14 @@ For more detailed information check the papers in the description. [2][3]
 ## example code
 ![example](images/example.PNG)
 
- S: the set of integers you want to have partitioned
- T: the starting temperature
- k: the size of neigborhood. Currently only works for a neighborhood of 1 at the moment, param is created to allow for k=2 in the future
- Sizefactor: the temperture length L to be k*SIZEFACTOR
- Cutoff: to shorten the length L; cut it abruptly to save time
- freeze_lim: maximum amount of times to be frozen during the annealing process
- min_percent: ratio to determine when the annealing run is frozen or not
+## Params
+ - S: the set of integers you want to have partitioned
+ - T: the starting temperature
+ - k: the size of neigborhood. Currently only works for a neighborhood of 1 at the moment, param is created to allow for k=2 in the future
+ - Sizefactor: the temperture length L to be k*SIZEFACTOR
+ - Cutoff: to shorten the length L; cut it abruptly to save time
+ - freeze_lim: maximum amount of times to be frozen during the annealing process
+ - min_percent: ratio to determine when the annealing run is frozen or not
 
 A more descriptive version can be seen in the documentation
 
