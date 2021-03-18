@@ -4,7 +4,7 @@ import random
 random.seed(1)
 from sim_annealing.schedules import *
 from sim_annealing.annealing import *
-
+from sim_annealing import schedules
 '''
 uncomment below if you want to see logging
 '''
