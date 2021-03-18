@@ -13,8 +13,8 @@ For more detailed information check the papers in the description. [2][3]
 
 Although code uses only basic packages, you may need to install the right package versions
 
-1.change directory to inside of the folder
-2.pip install requirements.txt
+1. change directory to inside of the folder
+2. pip install requirements.txt
 
 # how to use
 
