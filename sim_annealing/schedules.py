@@ -50,7 +50,7 @@ def linear_mult_cooling(T0, k, alpha=1):
   return T0/(1 + (alpha*k))
 
 
-def non_monotonic_adaptive_cooling(T0, k, current_cost, best_cost):
+def non_monotonic_adaptive_cooling(T0, k, current_cost, best_cost, alpha=0.9):
   '''
   In the non-monotonic adaptive cooling, the system temperature T at each state
   transition is computed multiplying the temperature value Tk, obtained by any
@@ -68,4 +68,4 @@ def non_monotonic_adaptive_cooling(T0, k, current_cost, best_cost):
 
   '''
   return (1 + round( ( (current_cost - best_cost)/current_cost), 3) ) *  \
-         exp_mult_cooling(T0, k)
+         exp_mult_cooling(T0, k, alpha)

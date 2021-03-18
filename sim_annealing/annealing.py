@@ -26,8 +26,8 @@ def isling_cost(S, I, A=1):
   
   return A * (S.dot(I.reshape(s_len,1))[0]**2)
 
-def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, TEMPFACTOR, FREEZE_LIM,
-                MINPERCENT, c_star=0, cooling_schedule='exp_mult'):
+def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, FREEZE_LIM,
+                MINPERCENT, alpha=None, c_star=0, cooling_schedule='exp_mult'):
   '''
     S
       des: given set of N positive numbers to be partitioned e.g {n1,n2,...nN}
@@ -144,14 +144,31 @@ def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, TEMPFACTOR, FREEZE_LIM,
           sol = s_prime
 
     
-    if cooling_schedule == 'exp_mult':
-      T = exp_mult_cooling(T0, cycle_counter)
+    if alpha != None: #use user selected alpha
+      if cooling_schedule == 'exp_mult':
+        T = exp_mult_cooling(T0, cycle_counter, alpha)
 
-    elif cooling_schedule == 'non_monotonic_adaptive':
-      T = non_monotonic_adaptive_cooling(T0, cycle_counter, cost, cost_star)
+      elif cooling_schedule == 'non_monotonic_adaptive':
+        T = non_monotonic_adaptive_cooling(T0, cycle_counter, cost, cost_star, alpha)
 
-    elif cooling_schedule == 'log_mult':
-      T = log_mult_cooling(T0, k)
+      elif cooling_schedule == 'log_mult':
+        T = log_mult_cooling(T0, cycle_counter, alpha)
+
+      elif cooling_schedule == 'lin_mult':
+        T = linear_mult_cooling(T0, cycle_counter, alpha)
+
+    else: #user relies on defualt alpha values
+      if cooling_schedule == 'exp_mult':
+        T = exp_mult_cooling(T0, cycle_counter)
+
+      elif cooling_schedule == 'non_monotonic_adaptive':
+        T = non_monotonic_adaptive_cooling(T0, cycle_counter, cost, cost_star)
+
+      elif cooling_schedule == 'log_mult':
+        T = log_mult_cooling(T0, cycle_counter)
+
+      elif cooling_schedule == 'lin_mult':
+        T = linear_mult_cooling(T0, cycle_counter)
 
     if cost_star_changed == True:
       freezecount = 0
@@ -168,15 +185,6 @@ def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, TEMPFACTOR, FREEZE_LIM,
 
 class TestAnnealing(unittest.TestCase):
 
-  T = 1000
-  k = 1
-  SIZEFACTOR = 4
-  CUTOFF = SIZEFACTOR
-  TEMPFACTOR = 0.9 
-  FREEZE_LIM = 5
-  MINPERCENT = 0.2
-
-  S = np.array([4,5,6,7,8])
 
   def test_exp_mult(self):
 
@@ -184,7 +192,6 @@ class TestAnnealing(unittest.TestCase):
     k = 1
     SIZEFACTOR = 4
     CUTOFF = SIZEFACTOR
-    TEMPFACTOR = 0.9 
     FREEZE_LIM = 5
     MINPERCENT = 0.2
 
@@ -192,7 +199,7 @@ class TestAnnealing(unittest.TestCase):
 
     #using default cooling schedule, exp mult cooling
     sol = annealing_1(S, T, k, SIZEFACTOR, CUTOFF,
-              TEMPFACTOR, FREEZE_LIM, MINPERCENT )
+                      FREEZE_LIM, MINPERCENT, alpha=0.9 )
     self.assertListEqual([1,1,1,-1,-1], sol)
 
   def test_non_mono_adapt(self):
@@ -201,7 +208,6 @@ class TestAnnealing(unittest.TestCase):
     k = 1
     SIZEFACTOR = 4
     CUTOFF = SIZEFACTOR
-    TEMPFACTOR = 0.9 
     FREEZE_LIM = 5
     MINPERCENT = 0.2
 
@@ -209,7 +215,7 @@ class TestAnnealing(unittest.TestCase):
 
     #using non-monotonic adaptive cooling schedule
     sol = annealing_1(S, T, k, SIZEFACTOR, CUTOFF,
-              TEMPFACTOR, FREEZE_LIM, MINPERCENT, 
+                      FREEZE_LIM, MINPERCENT, alpha=0.9,
               cooling_schedule='non_monotonic_adaptive')
     self.assertListEqual([1,1,1,-1,-1], sol)
 
@@ -219,14 +225,13 @@ class TestAnnealing(unittest.TestCase):
     k = 1
     SIZEFACTOR = 4
     CUTOFF = SIZEFACTOR
-    TEMPFACTOR = 0.9 
     FREEZE_LIM = 5
     MINPERCENT = 0.2
 
     S = np.array([4,5,6,7,8])
 
     sol = annealing_1(S, T, k, SIZEFACTOR, CUTOFF,
-              TEMPFACTOR, FREEZE_LIM, MINPERCENT, 
+                      FREEZE_LIM, MINPERCENT, alpha=2,
                 cooling_schedule='log_mult')
     self.assertListEqual([1,1,1,-1,-1], sol)
 
