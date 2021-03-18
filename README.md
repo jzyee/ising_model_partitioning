@@ -21,6 +21,13 @@ For more detailed information check the papers in the description. [2][3]
 ## example code
 ![example](images/example.PNG)
 
+## example output
+
+[1,1,1,-1,-1]
+
+- The positive 1s representing one partition
+- the negative 1s representig the other partition
+
 ## Params
  - S: the set of integers you want to have partitioned
  - T: the starting temperature
