@@ -9,6 +9,12 @@ SCHEVON.
 
 For more detailed information check the papers in the description. [2][3]
 
+# use to install packages necessary
+
+Although code uses only basic packages, you may need to install the right package versions
+
+1. change directory to inside of the folder
+2. pip install requirements.txt
 
 # how to use
 
@@ -17,6 +23,7 @@ For more detailed information check the papers in the description. [2][3]
 | annealing.py | the file containing the annealing function |
 | schedules.py | the file containing the cooling schedule functions |
 | testing.py | the file demonstrates how to use the sim_annealing function to perform simulated annealing for the number partioning problem |
+| test_sim_annealing.py | unittests|
 
 ## example code
 ![example](images/example.PNG)
