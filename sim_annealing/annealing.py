@@ -92,7 +92,7 @@ def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, FREEZE_LIM,
 
     Return: 
       Partitioned solution in the form of a list of -1s and 1s. 
-      With 1s in one group and -1s in the other
+      With 1s in one group and -1s in the other e.g [1, 1, 1, -1, -1]
 
     
   '''
@@ -132,7 +132,6 @@ def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, FREEZE_LIM,
         shuffled_idx = copy.deepcopy(neighbor_idx_changes)
         random.shuffle(shuffled_idx)
 
-      #print('trial:',trials)
       #generating a random neighbor Sprime
       s_prime = copy.deepcopy(sol)
       s_prime[shuffled_idx.pop()] *= (-1)
