@@ -10,16 +10,26 @@ import unittest
 
 def isling_cost(S, I, A=1):
   '''
-  S 
-    des: given set of N positive numbers to be partitioned e.g {n1,n2,...nN}
-  I
-    des: list of isling spin variables
-  A
-    des: a postive constance, A>0
+  summary:
+    cost function for the simulated annealing
 
-  let n[i] (i=1,...,N=|S|) , S
-  let s[i] (i=1,...,N=|S|), I
-  H = A * (np.sum([n[x]*s[i] for x in range(N)]))**2
+  Params:
+    S 
+      des: given set of N positive numbers to be partitioned e.g {n1,n2,...nN}
+      type: np.array
+    I
+      des: list of isling spin variables
+      type: list or np.array
+    A
+      des: a postive constance, A>0
+      type: int
+
+    let n[i] (i=1,...,N=|S|) , S
+    let s[i] (i=1,...,N=|S|), I
+    H = A * (np.sum([n[x]*s[i] for x in range(N)]))**2
+
+  Returns:
+    isling cost
   '''
   s_len = len(S)
   I = np.array(I)
@@ -29,47 +39,60 @@ def isling_cost(S, I, A=1):
 def annealing_1(S, T0 , k, SIZEFACTOR, CUTOFF, FREEZE_LIM,
                 MINPERCENT, alpha=None, c_star=0, cooling_schedule='exp_mult'):
   '''
-    S
-      des: given set of N positive numbers to be partitioned e.g {n1,n2,...nN}
-    
-    T0 
-      des: starting temperature
-    
-    k
-      des: neighborhood size
-           K should be < 2, a K of > 2 would analogously be O(n^k) and all K>2,
-           neighborhood structures are abandoned as they are computationally
-           infeasible
-    
-    c_star
-      des: upper bound on the optimal solution value, so ideally would be 0
+    Summary:
+      function simulates annealing process
 
-    SIZEFACTOR
-      des: we set the temperture length L to be N*SIZEFACTOR, where k is the 
-           expected neighborhood size. We hope to be able to handle a range of
-           instance sizes with a fixed value for SIZEFACTOR; temperature length
-           will remain proportional to the number of neighbors no matter what
-           the instance size
+    Params:
 
-    CUTOFF
-      des: setting the maximum number of changes to be N*CUTOFF allowed per temperature 
-           cycle, if CUTOFF == SIZEFACTOR then CUTTOFF is not utilized
-  
+      S
+        des: given set of N positive numbers to be partitioned e.g {n1,n2,...nN}
+        type: np.array
+      
+      T0 
+        des: starting temperature
+        type: int or float
+      
+      k
+        des: neighborhood size (for now just k=1)
+             K should be < 2, a K of > 2 would analogously be O(n^k) and all K>2,
+             neighborhood structures are abandoned as they are computationally
+             infeasible
+        type: int
+      
+      c_star
+        des: upper bound on the optimal solution value, so ideally would be 0
+        type: int or float
 
-    TEMPFACTOR
-      des: this is cooling ratio for T (Temperature)
+      SIZEFACTOR
+        des: we set the temperture length L to be k*SIZEFACTOR, where k is the 
+             expected neighborhood size. We hope to be able to handle a range of
+             instance sizes with a fixed value for SIZEFACTOR; temperature length
+             will remain proportional to the number of neighbors no matter what
+             the instance size
+        type: int
 
-    FREEZE_LIM
-      des: the max amount of time the annealing process can freeze
+      CUTOFF
+        des: setting the maximum number of changes to be N*CUTOFF allowed per temperature 
+             cycle, if CUTOFF == SIZEFACTOR then CUTTOFF is not utilized
+        type: int
 
-    MINPERCENT
-      des: this is used in testing whether the annealing run is frozen 
-           (and hence, should be termindated). A Counter is maintained that
-           is incremented by one each time a temperature is completed for 
-           which the percentage of accepted moves is MINPERCENT or less, 
-           and is reset to 0 each time a solution is found that is better 
-           than the pervious champion. IF the counter ever reacher 5, we 
-           declare the process frozen.
+      FREEZE_LIM
+        des: the max amount of time the annealing process can freeze
+        type: int
+
+      MINPERCENT
+        des: this is used in testing whether the annealing run is frozen 
+             (and hence, should be termindated). A Counter is maintained that
+             is incremented by one each time a temperature is completed for 
+             which the percentage of accepted moves is MINPERCENT or less, 
+             and is reset to 0 each time a solution is found that is better 
+             than the pervious champion. IF the counter ever reacher 5, we 
+             declare the process frozen.
+        type: float
+
+    Return: 
+      Partitioned solution in the form of a list of -1s and 1s. 
+      With 1s in one group and -1s in the other
 
     
   '''

@@ -21,6 +21,9 @@ def exp_mult_cooling(T, k=1, alpha=0.9):
   params:
     T: temperature
     k: temperature cycle
+
+  returns:
+    modified temp
   '''
   assert 0.8 <= alpha <= 0.9, 'alpha must be 0.8 <= alpha <= 0.9'
   return T * (alpha**k)
@@ -35,8 +38,11 @@ def log_mult_cooling(T0, k, alpha=2):
   
   params:
     T0: starting temperature
-    alpha: alpha, alpha must be more than 1
+    alpha: multiplier, alpha must be more than 1
     k: temperature cycle
+
+  returns:
+    modified temp
   '''
   assert alpha > 1, 'alpha must be > 1'
   return T0/(1 + alpha * (np.log(1+k)) )
@@ -45,6 +51,15 @@ def linear_mult_cooling(T0, k, alpha=1):
   '''
   The temperature decrease is made multiplying the initial temperature T0 by
   a factor that decreases in inverse proportion to the temperature cycle k.
+  
+  params:
+    T0: starting temperature
+    k: temperature cycle
+    alpha: multiplier
+
+  returns:
+    modified temp
+
   '''
   assert alpha > 0, 'alpha must be > 0'
   return T0/(1 + (alpha*k))
@@ -65,6 +80,17 @@ def non_monotonic_adaptive_cooling(T0, k, current_cost, best_cost, alpha=0.9):
   purpose. So the cooling curve is characterized by a fluctuant random behaviour 
   comprised between the exponential curve defined by Tk and its double value 
   2Tk.
+  
+
+  params:
+    T0: starting temperature
+    k: temperature cycle
+    alpha: multiplier
+    current_cost: current cost of current solution
+    best_cost: cost of the best solution computed so far
+
+  returns:
+    modified temp
 
   '''
   return (1 + round( ( (current_cost - best_cost)/current_cost), 3) ) *  \
