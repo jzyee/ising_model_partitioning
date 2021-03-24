@@ -1,5 +1,5 @@
-# Simulated_annealing
- Simulated annealing for number partioning problem
+# Simulated annealing and Genetric Algorithm Optimization
+ Simulated annealing and genetic algorithm optimization for number partioning problem
 
 # background
 Simulated annealing is a combinatorial optimization technique that was proposed by S. Kirkpatrick, C. D. Gelatt and M. P. Vecchi in the search for an algorithm performance beter than local optimzation. 
