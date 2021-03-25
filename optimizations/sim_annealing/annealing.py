@@ -3,7 +3,7 @@ import random
 import numpy as np
 import copy
 from .schedules import *
-from .costs import *
+from optimizations.costs import *
 random.seed(5)
 import unittest
 

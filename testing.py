@@ -2,10 +2,9 @@ import logging
 import numpy as np
 import random
 random.seed(1)
-from sim_annealing.schedules import *
-from sim_annealing.annealing import *
-from sim_annealing import schedules
-from sim_annealing.gen_algo import *
+from optimizations.sim_annealing.schedules import *
+from optimizations.sim_annealing.annealing import *
+from optimizations.genetic_algo.gen_algo import *
 '''
 uncomment below if you want to see logging
 '''

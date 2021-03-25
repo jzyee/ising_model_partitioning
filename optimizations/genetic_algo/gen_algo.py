@@ -27,7 +27,7 @@ start from a population of randomly generated individuals
 
 '''
 import numpy as np
-from .costs import * 
+from optimizations.costs import * 
 from .mutations import *
 from .selections import *
 
