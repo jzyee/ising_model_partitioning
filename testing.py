@@ -39,6 +39,8 @@ sol = annealing_1(S, T, k, SIZEFACTOR, CUTOFF,
 			      cooling_schedule='log_mult')
 print(sol)
 
+
+# for genetic algorithm optimization
 pop_size = 6
 k_parents = 2
 k_crossovers = 1
