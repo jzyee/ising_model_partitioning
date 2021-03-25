@@ -20,13 +20,21 @@ Although code uses only basic packages, you may need to install the right packag
 
 | filename | description|
 |----------|------------|
-| annealing.py | the file containing the annealing function |
-| schedules.py | the file containing the cooling schedule functions |
+| optimizations | the folder containing the optimization methods |
+| optimizations/costs.py | the costs for the optimizations methods |
+| genetic_algo | the folder containing the files pertaining to the genetic algorithm |
+| genetic_algo/gen_algo.py | the file containing the main code for genetic algorithm |
+| genetic_algo/mutations.py | the file containing code for the mutations used in the genetic algorithm |
+| genetic_algo/selections.py | the file containing code for the selection methods used in the genetic algorithm |
+| sim_annealing | the folder containing the files pertaining to the simulated annealing algorithm |
+| sim_annealing/annealing.py | the file containing the annealing function |
+| sim_annealing/schedules.py | the file containing the cooling schedule functions |
 | testing.py | the file demonstrates how to use the sim_annealing function to perform simulated annealing for the number partioning problem |
 | test_sim_annealing.py | unittests|
 
 ## example code
 ![example](images/example.PNG)
+![example2](images/gen_algo_example.PNG)
 
 ## example output
 
@@ -35,7 +43,24 @@ Although code uses only basic packages, you may need to install the right packag
 - The positive 1s representing one partition
 - the negative 1s representig the other partition
 
-## Params
+## Genetic Algorithm
+
+### Params
+
+- S: the set of integers you want to have partitioned
+- pop_size: the size of population
+- k_parents: number of parents for a single child
+- k_crossover: the number of points for crossover
+- GEN_LIMIT: the number of generations allowed
+- PLATEAU_LIMIT: the number of generations without an improvement allowed
+- c_star: score to terminate program at
+
+
+
+## Simulated Annealing
+
+### Params
+
  - S: the set of integers you want to have partitioned
  - T: the starting temperature
  - k: the size of neigborhood. Currently only works for a neighborhood of 1 at the moment, param is created to allow for k=2 in the future
@@ -46,7 +71,7 @@ Although code uses only basic packages, you may need to install the right packag
 
 A more descriptive version can be seen in the documentation
 
-## cooling schedules
+### cooling schedules
 
 For the cooling schedules there is documentation in the schedules.py to help choose the right parameters.
 Currently there are 4 cooling schedules to choose from
