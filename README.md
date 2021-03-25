@@ -1,4 +1,4 @@
-# Simulated annealing and Genetric Algorithm Optimization
+# Simulated annealing and Genetic Algorithm Optimization
  Simulated annealing and genetic algorithm optimization for number partioning problem
 
 # background
